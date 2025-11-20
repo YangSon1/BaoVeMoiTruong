@@ -1,0 +1,65 @@
+[
+  {
+    "id": "w1",
+    "name": "Vỏ chai nhựa",
+    "keywords": ["chai nhựa", "chai pet", "chai nước suối"],
+    "category": "nhựa",
+    "handling": "Rửa sạch, làm khô, bỏ vào thùng rác tái chế nhựa.",
+    "recycle": true,
+    "dropPoints": ["Điểm thu gom tái chế Quận 1", "Siêu thị xanh thu gom nhựa"]
+  },
+  {
+    "id": "w2",
+    "name": "Túi nilon",
+    "keywords": ["túi nilon", "túi nhựa", "bao nilon"],
+    "category": "nhựa",
+    "handling": "Tái sử dụng nếu còn sạch. Nếu bẩn thì bỏ vào rác thải sinh hoạt, không tái chế.",
+    "recycle": false,
+    "dropPoints": []
+  },
+  {
+    "id": "w3",
+    "name": "Vỏ lon nước ngọt",
+    "keywords": ["lon nước ngọt", "lon bia", "lon nhôm"],
+    "category": "kim loại",
+    "handling": "Ép dẹp, bỏ vào thùng rác tái chế kim loại hoặc bán ve chai.",
+    "recycle": true,
+    "dropPoints": ["Vựa ve chai gần nhà", "Điểm thu gom tái chế Quận 3"]
+  },
+  {
+    "id": "w4",
+    "name": "Pin tiểu đã qua sử dụng",
+    "keywords": ["pin tiểu", "pin aa", "pin aaa", "pin cũ"],
+    "category": "nguy hại",
+    "handling": "Không được vứt vào rác thường. Bỏ vào điểm thu gom pin chuyên dụng tại siêu thị, trường học hoặc UBND phường.",
+    "recycle": false,
+    "dropPoints": ["Thùng thu gom pin tại siêu thị", "UBND phường gần nhà"]
+  },
+  {
+    "id": "w5",
+    "name": "Bóng đèn huỳnh quang",
+    "keywords": ["bóng đèn huỳnh quang", "đèn tuýp", "ống đèn huỳnh quang"],
+    "category": "nguy hại",
+    "handling": "Không được đập vỡ. Giao cho đơn vị thu gom rác nguy hại hoặc điểm thu gom rác điện tử.",
+    "recycle": false,
+    "dropPoints": ["Điểm thu gom rác điện tử Quận 5"]
+  },
+  {
+    "id": "w6",
+    "name": "Rau, vỏ trái cây",
+    "keywords": ["vỏ trái cây", "rau thừa", "vỏ rau củ"],
+    "category": "hữu cơ",
+    "handling": "Có thể ủ làm phân compost hoặc bỏ vào thùng rác hữu cơ.",
+    "recycle": true,
+    "dropPoints": ["Thùng rác hữu cơ tại chung cư", "Vườn ươm cây xanh địa phương"]
+  },
+  {
+    "id": "w7",
+    "name": "Khẩu trang y tế đã dùng",
+    "keywords": ["khẩu trang y tế", "khẩu trang dùng một lần"],
+    "category": "y tế",
+    "handling": "Cắt dây, gấp lại, bỏ vào túi riêng và bỏ vào rác sinh hoạt, ưu tiên thùng rác y tế nếu có.",
+    "recycle": false,
+    "dropPoints": []
+  }
+]

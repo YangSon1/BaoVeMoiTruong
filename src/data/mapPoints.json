@@ -1,0 +1,37 @@
+[
+  {
+    "id": "p1",
+    "name": "Điểm thu gom rác tái chế Quận 1",
+    "type": "recycle",
+    "lat": 10.776889,
+    "lng": 106.700806
+  },
+  {
+    "id": "p2",
+    "name": "Điểm thu gom rác điện tử Quận 3",
+    "type": "electronic",
+    "lat": 10.783,
+    "lng": 106.695
+  },
+  {
+    "id": "p3",
+    "name": "Thùng pin đã qua sử dụng Quận 5",
+    "type": "battery",
+    "lat": 10.754,
+    "lng": 106.667
+  },
+  {
+    "id": "p4",
+    "name": "Bãi rác tập trung Bình Thạnh",
+    "type": "landfill",
+    "lat": 10.812,
+    "lng": 106.707
+  },
+  {
+    "id": "p5",
+    "name": "Trạm xử lý nước thải Thủ Đức",
+    "type": "water",
+    "lat": 10.85,
+    "lng": 106.77
+  }
+]
