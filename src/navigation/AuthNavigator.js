@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
 import GuestScreen from '../screens/Auth/GuestScreen';
+import MockSocialLoginScreen from '../screens/Auth/MockSocialLoginScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,11 @@ export default function AuthNavigator() {
         name="Guest"
         component={GuestScreen}
         options={{ title: 'Chế độ khách' }}
+      />
+      <Stack.Screen 
+        name="MockSocialLogin" 
+        component={MockSocialLoginScreen} 
+        options={{ headerShown: false }} // Ẩn header mặc định để dùng header fake của ta
       />
     </Stack.Navigator>
   );

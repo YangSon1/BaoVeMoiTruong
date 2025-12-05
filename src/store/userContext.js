@@ -1,7 +1,7 @@
 // src/store/userContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { login as authLogin, register as authRegister, resetPassword, deleteAuthUserById } from '../services/authService';
+import { login as authLogin, register as authRegister, resetPassword, deleteAuthUserById,loginWithGoogle as authLoginWithGoogle, loginWithFacebook as authLoginWithFacebook } from '../services/authService';
 import { getUserProfile, updateUserProfile, deleteUserAccount } from '../services/userService';
 
 const UserContext = createContext(null);
@@ -44,6 +44,20 @@ export function UserProvider({ children }) {
     }
   };
 
+  // Hàm trợ giúp để xử lý cập nhật trạng thái người dùng sau khi đăng nhập thành công (từ bất kỳ phương thức nào)
+  const handleSuccessfulLogin = async (account) => {
+    // 1. Cập nhật trạng thái người dùng
+    const userObject = { id: account.id, email: account.email, isGuest: false };
+    setUser(userObject);
+
+    // 2. Tải thông tin hồ sơ
+    const p = await getUserProfile(account.id);
+    setProfile(p);
+
+    // 3. Lưu trữ người dùng vào AsyncStorage
+    await persistUser(userObject);
+  }
+
   // Đăng ký
   const register = async (email, password) => {
     const account = await authRegister(email, password);
@@ -61,6 +75,18 @@ export function UserProvider({ children }) {
     setProfile(p);
     await persistUser({ id: account.id, email: account.email, isGuest: false });
   };
+
+  // Đăng nhập Google
+   const loginWithGoogle = async () => {
+     const account = await authLoginWithGoogle(); 
+    await handleSuccessfulLogin(account);
+   };
+
+   // Đăng nhập Facebook
+   const loginWithFacebook = async () => {
+     const account = await authLoginWithFacebook();
+    await handleSuccessfulLogin(account);
+   };
 
   // Đăng nhập guest
   const loginAsGuest = async () => {
@@ -119,6 +145,8 @@ const removeAccount = async () => {
     loading,
     register,
     login,
+    loginWithGoogle,
+    loginWithFacebook,
     loginAsGuest,
     logout,
     requestResetPassword,

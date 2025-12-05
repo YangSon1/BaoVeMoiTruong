@@ -2,7 +2,7 @@
 import React from 'react';
 import { UserProvider } from './userContext';
 import { AQIProvider } from './aqiContext';
-import { GamificationProvider } from './gamificationContext';
+import { GamificationProvider } from './GamificationContext';
 
 export function AppProvider({ children }) {
   return (

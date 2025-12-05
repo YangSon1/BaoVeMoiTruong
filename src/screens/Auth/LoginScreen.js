@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { useUser } from '../../store/userContext';
 
 export default function LoginScreen({ navigation }) {
-  const { login, loginAsGuest, requestResetPassword } = useUser();
+  const { login, loginAsGuest, requestResetPassword, loginWithGoogle, loginWithFacebook } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -26,6 +26,14 @@ export default function LoginScreen({ navigation }) {
     } catch (e) {
       Alert.alert('Lỗi', e.message);
     }
+  };
+
+ const handleGoogleLogin = () => {
+    navigation.navigate('MockSocialLogin', { provider: 'google' });
+  };
+
+  const handleFacebookLogin = () => {
+    navigation.navigate('MockSocialLogin', { provider: 'facebook' });
   };
 
   return (
@@ -52,6 +60,25 @@ export default function LoginScreen({ navigation }) {
 
       <Button title="Đăng nhập" onPress={handleLogin} />
 
+      <Text style={styles.orText}>— Hoặc —</Text>
+      
+      <View style={styles.socialContainer}>
+        {/* Nút Google */}
+        <TouchableOpacity 
+          style={[styles.socialButton, styles.googleButton]} 
+          onPress={handleGoogleLogin}
+        >
+          <Text style={styles.socialText}>Google</Text>
+        </TouchableOpacity>
+
+        {/* Nút Facebook */}
+        <TouchableOpacity 
+          style={[styles.socialButton, styles.facebookButton]} 
+          onPress={handleFacebookLogin}
+        >
+          <Text style={styles.socialText}>Facebook</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.spacer} />
       <Button title="Đăng nhập với tư cách khách" onPress={loginAsGuest} />
 
@@ -69,4 +96,21 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 16, textAlign: 'center' },
   input: { borderWidth: 1, borderColor: '#ccc', padding: 8, borderRadius: 4, marginBottom: 12 },
   spacer: { height: 8 },
+  // Style cho phần Social Login
+  orText: { textAlign: 'center', marginVertical: 12, color: '#888' },
+  socialContainer: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
+  socialButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginHorizontal: 5,
+  },
+  googleButton: { backgroundColor: '#DB4437' }, // Màu đỏ Google
+  facebookButton: { backgroundColor: '#4267B2' }, // Màu xanh Facebook
+  socialText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+
+  // Style cho link text
+  linkButton: { alignItems: 'center', padding: 5 },
+  linkText: { color: '#007AFF', textDecorationLine: 'underline' },
 });

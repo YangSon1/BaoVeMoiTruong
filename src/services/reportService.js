@@ -1,51 +1,70 @@
-// src/services/reportService.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const REPORTS_KEY = 'ENV_APP_REPORTS';
+const REPORT_KEY = 'ENV_APP_REPORTS';
 
-// Lấy toàn bộ danh sách báo cáo
-export async function getAllReports() {
-  const json = await AsyncStorage.getItem(REPORTS_KEY);
-  return json ? JSON.parse(json) : [];
+// Giả lập delay mạng
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// 1. Lấy tất cả báo cáo
+export async function getReports() {
+  try {
+    const json = await AsyncStorage.getItem(REPORT_KEY);
+    return json ? JSON.parse(json) : [];
+  } catch (e) {
+    return [];
+  }
 }
 
-// Lưu lại danh sách xuống AsyncStorage
-async function saveAllReports(reports) {
-  await AsyncStorage.setItem(REPORTS_KEY, JSON.stringify(reports));
-}
-
-// Lấy danh sách báo cáo theo userId (nếu cần)
+// 2. Lấy báo cáo của riêng User
 export async function getReportsByUser(userId) {
-  const all = await getAllReports();
-  if (!userId) return all;
-  return all.filter(r => r.userId === userId);
+  if (!userId) return [];
+  const allReports = await getReports();
+  // Lọc chỉ lấy bài của user này
+  return allReports.filter(report => report.userId === userId);
 }
 
-// Tạo báo cáo mới
-export async function createReport(reportData) {
-  const all = await getAllReports();
+// 3. Tạo báo cáo mới
+export async function createReport(userId, data) {
+  await delay(1000); 
 
+  const reports = await getReports();
+  
   const newReport = {
     id: Date.now().toString(),
-    userId: reportData.userId || null,
-    description: reportData.description || '',
-    imageUri: reportData.imageUri || null,
-    location: reportData.location || null, // { latitude, longitude }
-    status: 'Đã nhận',                      // trạng thái ban đầu
-    createdAt: new Date().toISOString(),
+    userId,
+    title: data.title,
+    description: data.description,
+    location: data.location,
+    imageUri: data.imageUri || null, 
+    status: 'Đã nhận', // Trạng thái mặc định ban đầu
+    timestamp: new Date().toISOString(),
   };
 
-  all.unshift(newReport); // thêm lên đầu
-  await saveAllReports(all);
+  // Thêm vào đầu danh sách
+  reports.unshift(newReport);
+  
+  await AsyncStorage.setItem(REPORT_KEY, JSON.stringify(reports));
   return newReport;
 }
 
-// Cập nhật trạng thái báo cáo
+// 4.Cập nhật trạng thái báo cáo
 export async function updateReportStatus(reportId, newStatus) {
-  const all = await getAllReports();
-  const idx = all.findIndex(r => r.id === reportId);
-  if (idx === -1) return null;
-  all[idx].status = newStatus;
-  await saveAllReports(all);
-  return all[idx];
+  await delay(500);
+
+  // Lấy danh sách cũ
+  const reports = await getReports();
+  
+  // Tìm báo cáo cần sửa
+  const index = reports.findIndex(r => r.id === reportId);
+  if (index === -1) {
+    throw new Error('Không tìm thấy báo cáo');
+  }
+
+  // Cập nhật trạng thái mới
+  reports[index].status = newStatus;
+
+  // Lưu lại vào bộ nhớ
+  await AsyncStorage.setItem(REPORT_KEY, JSON.stringify(reports));
+  
+  return reports[index];
 }

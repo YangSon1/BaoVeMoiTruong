@@ -5,6 +5,9 @@ import AuthNavigator from './AuthNavigator';
 import MainTabNavigator from './MainTabNavigator';
 import { useUser } from '../store/userContext';
 import PostDetailScreen from '../screens/Community/PostDetailScreen';
+import RewardScreen from '../screens/Gamification/RewardScreen';
+import LibraryScreen from '../screens/Learning/LibraryScreen';
+import QuizScreen from '../screens/Learning/QuizScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +28,29 @@ export default function RootNavigator() {
             name="PostDetail"
             component={PostDetailScreen}
             options={{ headerShown: true, title: 'Bài viết' }}
+          />
+
+          <Stack.Screen 
+            name="Rewards" 
+            component={RewardScreen} 
+            options={{ headerShown: true, title: 'Đổi quà & Huy hiệu' }} 
+          />
+
+          <Stack.Screen 
+            name="Library" 
+            component={LibraryScreen} 
+            options={{ 
+              headerShown: true, 
+              title: 'Thư viện Kiến thức',
+              headerStyle: { backgroundColor: '#0288D1' },
+              headerTintColor: '#fff',
+            }} 
+          />
+
+          <Stack.Screen 
+            name="Quiz" 
+            component={QuizScreen} 
+            options={{ title: 'Trắc nghiệm vui', headerShown: true }} 
           />
         </>
       )}
